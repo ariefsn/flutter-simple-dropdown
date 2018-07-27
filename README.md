@@ -1,6 +1,6 @@
-# simple_dropdown
+# Simple Dropdown
 
-A new Flutter project.
+Simple Dropdown Widget for Flutter Apps.
 
 ## Getting Started
 
