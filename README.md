@@ -53,19 +53,19 @@ new SimpleDropdown(
 | textStyle         | TextStyle    | -           | No       |
 
 1. arrowSize
-    Set the size of arrow icon at the end of widget.
+    > Set the size of arrow icon at the end of widget.
 2. callbackGetValue
-    Callback function for catch value from selected dropdown.
+    > Callback function for catch value from selected dropdown.
 3. hint
-    Set text for hint of dropdown.
+    > Set text for hint of dropdown.
 4. hintStyle
-    Styling hint of dropdown.
+    > Styling hint of dropdown.
 5. items
-    List of dropdown item. Set with key "value" for value, and key "display" for display.
+    > List of dropdown item. Set with key "value" for value, and key "display" for display.
 6. isDense
-    Set dropdown to dense or not.
+    > Set dropdown to dense or not.
 7. textStyle
-    Styling text of dropdown items.
+    > Styling text of dropdown items.
 
 For help getting started with Flutter, view our online
 [documentation](https://flutter.io/).
