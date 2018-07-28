@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 
 class SimpleDropdown extends StatefulWidget {
   SimpleDropdown({
-    this.callbackGetValue,
+    this.arrowSize,
+    @required this.callbackGetValue,
     this.hint,
+    this.hintStyle,
     @required this.items,
+    this.isDense = false,
+    this.textStyle,
   });
 
+  final double arrowSize;
   final Function callbackGetValue;
   final String hint;
+  final TextStyle hintStyle;
   final List items;
+  final bool isDense;
+  final TextStyle textStyle;
 
   @override
   SimpleDropdownState createState() {
@@ -20,76 +28,50 @@ class SimpleDropdown extends StatefulWidget {
 class SimpleDropdownState extends State<SimpleDropdown> {
   DropDownElement _element;
   List<DropDownElement> _elements = <DropDownElement>[];
-  // List<DropDownElement> _elements = widget.items;
 
-  getType(List elementMap) {
+  getElement(List elementMap) {
     List<DropDownElement> res = new List<DropDownElement>();
     for (var i = 0; i < elementMap.length; i++) {
       var x = DropDownElement(elementMap[i]['value'], elementMap[i]['display']);
       res.add(x);
     }
     setState(() {
-      _element = res[0];
       _elements = res;
     });
-    print(_element.display);
   }
 
   @override
   void initState() {
     // TODO: implement initState
+    getElement(widget.items);
     super.initState();
-    // getType(widget.items);
-    _elements = [
-      DropDownElement("A", "Ayik"),
-      DropDownElement("B", "Bobo"),
-      DropDownElement("C", "Chacha"),
-      DropDownElement("D", "Chacha"),
-      DropDownElement("E", "Euy"),
-      // {"value": "A", "display": "Ayik"},
-      // {"value": "B", "display": "Bobo"},
-      // {"value": "C", "display": "Chacha"},
-      // {"value": "D", "display": "Damen"},
-      // {"value": "E", "display": "Euy"},
-    ];
+
   }
 
   @override
   Widget build(BuildContext context) {
-    // return new DropdownButton<DropDownElement>(
-    //   value: _element,
-    //   items: _elements.map((DropDownElement element) {
-    //     return DropdownMenuItem<DropDownElement>(
-    //       value: element,
-    //       child: new Text("element.display"),
-    //     );
-    //   }).toList(),
-    //   onChanged: (DropDownElement val) {
-    //     // widget.callbackGetValue(val);
-    //   },
-    //   hint: new Text(widget.hint),
-    // );
-    return new SafeArea(
-      child: new Column(
-        children: <Widget>[
-          new RaisedButton(
-            onPressed: (){
-              getType(widget.items);
-            },
-            color: Colors.amber,
-            child: new Text("data"),
+    return new DropdownButton<DropDownElement>(
+      style: widget.textStyle,
+      hint: new Text(widget.hint != null ? widget.hint : _elements[0].display, style: widget.hintStyle,),
+      value: _element,
+      iconSize: widget.arrowSize,
+      isDense: widget.isDense,
+      onChanged: (DropDownElement newElement) {
+        List _send = [{"value": newElement.value, "display": newElement.display}];
+        widget.callbackGetValue(_send);
+        setState(() {
+          _element = newElement;
+        });
+      },
+      items: _elements.map((DropDownElement element) {
+        return new DropdownMenuItem<DropDownElement>(
+          value: element,
+          child: new Text(
+            element.display,
+            style: new TextStyle(color: Colors.black),
           ),
-          new Text(widget.items.toString()),
-          new RaisedButton(
-            onPressed: (){
-              print(_elements.toString());
-              // print(_elements[0].display.toString());
-            },
-            color: Colors.indigo,
-            child: new Text("xxx"),
-          ),
-        ],
-      ),
+        );
+      }).toList(),
     );
   }
 }

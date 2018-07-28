@@ -14,12 +14,22 @@ class _HomeState extends State<Home> {
     {"value": "D", "display": "Damen"},
     {"value": "E", "display": "Euy"},
   ];
+
+  callbackGetDropdown(List val){
+    print(val);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new Container(
+      body: new Center(
         child: new SimpleDropdown(
+          hintStyle: new TextStyle(color: Colors.red),
           items: items,
+          hint: "Simple Dropdown",
+          callbackGetValue: (val){
+            callbackGetDropdown(val);
+          },
         ),
       ),
     );
